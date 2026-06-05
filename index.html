@@ -10,6 +10,22 @@
   <main>
     <h1 id="title">Violin Topics</h1>
     <p id="greeting">Hello Violin World</p>
+
+    <form id="topic-form" class="topic-form">
+      <label for="topic-input">Workshop topic</label>
+      <div class="topic-form-row">
+        <input
+          type="text"
+          id="topic-input"
+          name="topic"
+          placeholder="e.g. Bow technique basics"
+          autocomplete="off"
+        >
+        <button type="submit">Add topic</button>
+      </div>
+    </form>
+
+    <ul id="topic-list" class="topic-list" aria-live="polite"></ul>
   </main>
   <script src="script.js"></script>
 </body>
