@@ -1,28 +1,80 @@
-// Run setup once the HTML is loaded and elements exist on the page.
-document.addEventListener('DOMContentLoaded', () => {
-  // References to the form, text input, and topic list from index.html.
-  const form = document.getElementById('topic-form');
-  const input = document.getElementById('topic-input');
-  const list = document.getElementById('topic-list');
+// --- Data storage ---
+// Topics are objects: { id, title, description }
+// Newest topics appear first in the array.
+let topics = [];
 
-  // Fires when the user clicks "Add topic" or presses Enter in the input.
+// Set during setup; used when rendering cards.
+let topicList = null;
+
+// --- Business logic ---
+
+/** Create a topic object with a unique id. */
+function createTopic(title, description) {
+  return {
+    id: crypto.randomUUID(),
+    title: title.trim(),
+    description: description.trim(),
+  };
+}
+
+/** Add a topic to the collection (at the top). */
+function addTopic(topic) {
+  topics.unshift(topic);
+}
+
+// --- Presentation ---
+
+/**
+ * Build a display card for one topic.
+ * Title and description areas are focusable for standard browser scrolling.
+ */
+function createTopicCardElement(topic) {
+  const card = document.createElement('li');
+  card.className = 'topic-card';
+  card.dataset.topicId = topic.id;
+
+  const titleArea = document.createElement('div');
+  titleArea.className = 'topic-card__title';
+  titleArea.tabIndex = 0;
+  titleArea.textContent = topic.title;
+
+  const descriptionArea = document.createElement('div');
+  descriptionArea.className = 'topic-card__description';
+  descriptionArea.tabIndex = 0;
+  descriptionArea.textContent = topic.description;
+
+  card.append(titleArea, descriptionArea);
+  return card;
+}
+
+/** Insert a topic card at the top of the list. */
+function prependTopicCard(topic) {
+  topicList.prepend(createTopicCardElement(topic));
+}
+
+// --- Event handlers ---
+
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('topic-form');
+  const titleInput = document.getElementById('topic-title');
+  const descriptionInput = document.getElementById('topic-description');
+  topicList = document.getElementById('topic-list');
+
   form.addEventListener('submit', (event) => {
-    // Keep the page from reloading (default form behavior).
     event.preventDefault();
 
-    const topic = input.value.trim();
-    // Ignore empty or whitespace-only submissions.
-    if (!topic) {
+    const title = titleInput.value.trim();
+    // Require a title; description may be empty.
+    if (!title) {
       return;
     }
 
-    // Build a new list item and insert it at the top of the list.
-    const item = document.createElement('li');
-    item.textContent = topic;
-    list.prepend(item);
+    const topic = createTopic(title, descriptionInput.value);
+    addTopic(topic);
+    prependTopicCard(topic);
 
-    // Clear the field and refocus for the next topic.
-    input.value = '';
-    input.focus();
+    titleInput.value = '';
+    descriptionInput.value = '';
+    titleInput.focus();
   });
 });
