@@ -1,3 +1,157 @@
+# 20260616
+
+## To do next
+
+- Add editing of existing topics
+- Decide on the editing workflow (inline editing, edit mode within the card, or reuse of the topic editor)
+- Preserve topic IDs when editing existing topics
+- Review the implementation and code structure
+- Commit and push changes
+
+## Done
+
+- Reviewed the topic validation logic in script.js
+- Analyzed the responsibilities of createTopic, isValidTopic, and parseStoredTopics
+- Distinguished between:
+  - UI validation (topic submission)
+  - Structural validation (topic object shape)
+  - Future data cleanup/migration
+- Decided that non-empty titles are currently a UI rule rather than a data-model rule
+- Determined that extra fields on stored topic objects are acceptable for now
+- Identified a misleading comment in isValidTopic and clarified the intended meaning of the function
+- Requested comment/documentation updates rather than stricter validation logic
+- Implemented improved handling of empty topic titles in the editor
+- Replaced silent failure with visible user feedback
+- Added handling for whitespace-only titles
+- Added button enable/disable logic based on title validity
+- Reviewed the resulting user experience and concluded that the functionality is satisfactory, with possible visual refinements deferred
+- Committed and pushed the validation and documentation changes
+
+---
+
+# 20260614
+
+## To do next
+- Review the Simplify Data Feedback changes in detail.
+- Understand the rationale behind the refactoring.
+- Check whether the persistence status handling is now clearer.
+- Commit and push the changes if the review is satisfactory.
+- Improve topic submission UX.
+  - Disable "Add topic" button when title is empty.
+  - Re-enable when a non-whitespace title is entered.
+  - Keep server/business-logic validation in the submit handler.
+
+## Done
+- Clarified Cursor Pro payment issue with bank.
+- Card had been locked by fraud detection; lock removed.
+- Successfully upgraded to Cursor Pro.
+- Implemented Simplify Data Feedback refactoring.
+
+---
+
+# 20260613
+
+## To do next
+
+- Resolve Cursor payment issue or contact support.
+- Implement persistence feedback simplification.
+- Review code changes.
+- Commit and push.
+
+## Done
+
+- Reviewed persistence feedback design.
+- Decided to remove the persistence status area and use browser alerts for successful save/load operations.
+- Prepared a prompt for the refactoring.
+- Investigated Cursor Pro payment issue (Mastercard + PhotoTAN authentication succeeds, payment still rejected).
+- Captured screenshots for possible support request.
+
+---
+
+# 20260612
+
+## To do next
+
+- Commit and push the localStorage persistence work.
+- Review Cursor's proposal for improving persistence-status handling.
+- Review Cursor's proposal for validating topic submission when the title is empty.
+- Decide whether to refactor the persistence-status logic.
+- Decide how validation feedback for missing titles should work.
+- If the proposals are accepted, implement and test the changes.
+
+## Done
+
+- Reviewed the current HTML and JavaScript code.
+- Traced the control flow through the event handlers.
+- Confirmed that the overall structure is logical and understandable.
+- Identified a code-clarity issue:
+  - `clearPersistenceStatus()` is called from several event handlers without a clearly documented rule.
+- Identified a submit-logic issue:
+  - If the title field is empty, the Add Topic handler returns without feedback and without clearing the persistence status.
+- Asked Cursor to analyze both issues and propose improvements before making code changes.
+- Received a design proposal for review.
+
+---
+
+# 20260611
+
+## To do next
+
+- Review the generated code.
+- Request a high-level explanation of the application's current architecture and logical flow.
+- Consider improving comments in `script.js` to document the flow of data and control.
+- Commit and push the changes after review.
+
+## Done
+
+- Reviewed options for persistent storage of topics.
+- Discussed JSON as a storage format and how it can support future extensions (categories, timestamps, rich-text markup, etc.).
+- Asked Cursor to propose a JSON data structure and localStorage key before implementation.
+- Implemented topic persistence using browser localStorage.
+- Added **Store Topics** and **Load Topics** buttons.
+- Verified that topics can be stored, reloaded, and that topic order is preserved.
+- Identified potential data-loss scenarios:
+  - Storing an empty topic list can overwrite a previously saved list.
+  - Loading a saved list can discard unsaved edits in the current session.
+- Added confirmation dialogs to protect against accidental data loss during load and store operations.
+- Learned about JavaScript `confirm()` dialogs and their use as a simple safeguard before destructive actions.
+- Improved status message handling:
+  - Success messages are shown after successful load/store operations.
+  - Old status messages are cleared when the user edits data or cancels a load/store operation.
+- Reached a point where the application contains enough interacting features that understanding the overall data flow and architecture becomes important.
+
+---
+
+# 20260610
+
+## To do next
+
+- Ask Cursor to propose the JSON data structure and localStorage design.
+- Implement storing topics in localStorage.
+- Implement loading topics from localStorage.
+- Test persistence across browser restart.
+- Review the code changes and commit them to Git.
+
+## Done
+
+- Reviewed the current state of the violinTopics project.
+  - Read and understood the overall project structure.
+  - Asked Cursor to explain the CSS file and reviewed its styling approach.
+  - Confirmed that topics are already represented as objects stored in an array.
+- Discussed options for persistent storage of topics:
+  - text-based storage (JSON)
+  - localStorage
+  - database solutions
+- Decided to introduce persistence incrementally:
+  - first localStorage using JSON
+  - later optional JSON import/export
+  - database only if needed in the future
+  Designed the next implementation step:
+  - store and load topics from localStorage
+  - preserve topic order
+  - add explicit "Store topics" and "Load topics" buttons
+  - review the planned JSON data structure before implementation
+
 ---
 
 # 20260608
@@ -54,10 +208,8 @@ Today I made the first major structural change to the Violin Topics web app.
 ### Development Workflow
 
 - Reviewed and accepted Cursor's proposed changes. 
-- Prepared a Git commit for the completed work.   
+- Prepared a Git commit for the completed work.  
 Result: The application evolved from a simple topic list into the first version of a structured topic-management system with a clear path toward categories, editing, filtering, and richer topic metadata.
-
-
 
 ---
 
@@ -70,8 +222,6 @@ Refine the prompt and use it.
 ## Done
 
 Today, I developed a UI Roadmap and turned it into a prompt for Cursor to develop the initial stage.
-
-
 
 ---
 
@@ -97,8 +247,6 @@ Today, I developed a UI Roadmap and turned it into a prompt for Cursor to develo
 - Reviewed the resulting code and CSS changes. 
 - Prepared the next UI cleanup task (removing the "Workshop topic" label). 
 - Practiced Git commits and commit messages.
-
-
 
 ---
 
@@ -141,8 +289,6 @@ Today, I developed a UI Roadmap and turned it into a prompt for Cursor to develo
 - git push
 - Clarified that git add . stages all changed files in the current project tree rather than re-adding the entire repository.
 - Committed changes to GitHub
-
-
 
 ---
 

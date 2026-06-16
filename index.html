@@ -10,17 +10,28 @@
   <main>
     <h1 id="page-title">Violin Topics</h1>
 
+    <div class="persistence-actions" aria-label="Topic persistence">
+      <button type="button" id="store-topics">Store topics</button>
+      <button type="button" id="load-topics">Load topics</button>
+    </div>
+
     <!-- Entry card: same layout as a topic card (Stage 2). -->
     <form id="topic-form" class="topic-card topic-editor" aria-label="Add a new topic">
-      <div class="topic-card__title">
-        <label class="visually-hidden" for="topic-title">Title</label>
-        <input
-          type="text"
-          id="topic-title"
-          name="title"
-          placeholder="Topic title"
-          autocomplete="off"
-        >
+      <div class="topic-editor__title-field">
+        <div class="topic-card__title">
+          <label class="visually-hidden" for="topic-title">Title</label>
+          <input
+            type="text"
+            id="topic-title"
+            name="title"
+            placeholder="Topic title"
+            autocomplete="off"
+            aria-describedby="topic-title-error"
+          >
+        </div>
+        <p id="topic-title-error" class="topic-editor__title-error" hidden>
+          Title is required.
+        </p>
       </div>
       <div class="topic-card__description">
         <label class="visually-hidden" for="topic-description">Description</label>
@@ -31,7 +42,7 @@
         ></textarea>
       </div>
       <div class="topic-editor__actions">
-        <button type="submit">Add topic</button>
+        <button type="submit" id="topic-submit" disabled>Add topic</button>
       </div>
     </form>
 
